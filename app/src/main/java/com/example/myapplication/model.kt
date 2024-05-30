@@ -1,6 +1,5 @@
 package com.example.myapplication
 import com.google.gson.Gson
-import android.util.Log
 
 open class WordWithEmbed(_word: String, _embed: Array<Double>) {
     var word: String = _word
