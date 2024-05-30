@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -20,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         val db: Database = Database(jsonString)
         val space: VectorSpace = VectorSpace()
         val answer = db.newWord()
-        Log.i("TAG", answer.word)
+        Log.d("TAG", answer.word)
         var attempts = mutableSetOf<WordWithEmbed>()
 
         val showAttempts = findViewById<LinearLayout>(R.id.AttemptList)
@@ -30,8 +31,12 @@ class MainActivity : AppCompatActivity() {
 
         sendWord.setOnClickListener {
             var text = inputWord.text.toString().trim()
-            if (text == answer.word)
-                exitProcess(0)
+            inputWord.setText("")
+            if (text == answer.word) {
+                val intent: Intent = Intent(this, winActivity::class.java)
+                intent.putExtra("count", attempts.size)
+                startActivity(intent)
+            }
             val embed = db.wordToEmbedding(text)
             if (embed == null) {
                 last.setText("Я не знаю такого слова")
