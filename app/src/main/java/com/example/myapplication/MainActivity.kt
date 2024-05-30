@@ -22,8 +22,6 @@ class MainActivity : AppCompatActivity() {
         val answer = db.newWord()
         Log.i("TAG", answer.word)
         var attempts = mutableSetOf<WordWithEmbed>()
-        //var attempts = mutableSetOf<String>()
-
 
         val showAttempts = findViewById<LinearLayout>(R.id.AttemptList)
         val inputWord = findViewById<EditText>(R.id.input)
