@@ -6,6 +6,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
+import kotlin.system.exitProcess
+import android.util.Log
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,24 +18,39 @@ class MainActivity : AppCompatActivity() {
             it.readText()
         }
         val db: Database = Database(jsonString)
+        val space: VectorSpace = VectorSpace()
+        val answer = db.newWord()
+        Log.i("TAG", answer.word)
+        var attempts = mutableSetOf<WordWithEmbed>()
+        //var attempts = mutableSetOf<String>()
 
-        val attempts = findViewById<LinearLayout>(R.id.AttemptList)
+
+        val showAttempts = findViewById<LinearLayout>(R.id.AttemptList)
         val inputWord = findViewById<EditText>(R.id.input)
         val sendWord = findViewById<Button>(R.id.send)
         val last = findViewById<TextView>(R.id.lastAttempt)
 
         sendWord.setOnClickListener {
             var text = inputWord.text.toString().trim()
+            if (text == answer.word)
+                exitProcess(0)
             val embed = db.wordToEmbedding(text)
             if (embed == null) {
                 last.setText("Я не знаю такого слова")
             }
             else {
-                text += ": 10"
+                val newAttempt: WordWithEmbed = WordWithEmbed(text, embed)          // embed - smart cast
+                //newAttempt.score = space.distance(answer, newAttempt)
+                val score = space.distance(answer, newAttempt)
                 last.setText(text)
-                val newAttempt = EditText(this)
-                newAttempt.setText(text)
-                attempts.addView(newAttempt)
+                if (!attempts.contains(newAttempt)) {
+                    attempts.add(newAttempt)
+                    text += ": " + "%.2f".format(score)
+                    val showAttempt = TextView(this)
+                    showAttempt.setTextSize(20f)
+                    showAttempt.setText(text)
+                    showAttempts.addView(showAttempt)
+                }
             }
         }
 
