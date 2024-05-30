@@ -11,6 +11,7 @@
         android:layout_width="146dp"
         android:layout_height="42dp"
         android:text="Угадайка"
+        android:textAlignment="center"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -28,6 +29,7 @@
         android:ems="10"
         android:hint="Введите слово"
         android:inputType="textPersonName"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,9 +50,10 @@
         android:layout_width="408dp"
         android:layout_height="224dp"
         android:layout_marginStart="3dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="64dp"
         android:layout_marginEnd="3dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/test">
 
@@ -68,5 +71,20 @@
                 android:textSize="20sp" />
         </LinearLayout>
     </ScrollView>
+
+    <TextView
+        android:id="@+id/lastAttempt"
+        android:layout_width="232dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="8dp"
+        android:text="Попытка"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/test"
+        app:layout_constraintVertical_bias="0.486" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
